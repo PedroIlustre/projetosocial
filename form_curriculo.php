@@ -74,20 +74,10 @@
                 </div>
             </div>
             <div class="row" style="width:500px !important; font-size:1.5em !important; margin-left:250px !important">
-
-<form method="post" enctype="multipart/form-data" action="recebeUpload.php">
+                
+            <form action="gera_pdf_cv.php" enctype="multipart/form-data" method="post" target="_blank">
+                
                    Selecione uma imagem: <input name="arquivo" type="file" />
-                   <br />
-                   <input type="submit" value="Salvar" />
-                </form>
-                
-            <form action="gera_pdf_cv.php" method="post" target="_blank">
-                <!-- MAX_FILE_SIZE deve preceder o campo input -->
-                <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
-                <!-- O Nome do elemento input determina o nome da array $_FILES -->
-                Foto de Perfil: <input name="userfile" type="file" />
-                
-                
                 
                 
                 <div class="col-lg-12">

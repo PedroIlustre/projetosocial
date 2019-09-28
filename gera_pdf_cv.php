@@ -41,12 +41,24 @@ aptdoes,passatempo
  -->
  <?php 
  
- print_r($_FILES);die;
- $destino = '../'.$_POST['nome'].'/img/' . $_FILES['arquivo']['"userfile"'];
+//  $_POST['nome'] = 'joao_carlos_ferreira_f';
+ $destino = 'projetos/'.$_POST['nome'].'/img/';
+ $arquivo = $_FILES['arquivo']['name'];
+ 
+ $diretorio_arquivo = $destino . $_FILES['arquivo']['name'];
+ mkdir('projetos/'.$_POST['nome']);
+ mkdir('projetos/'.$_POST['nome'].'/img');
+ 
  $arquivo_tmp = $_FILES['arquivo']['tmp_name'];
+ move_uploaded_file($arquivo_tmp, $diretorio_arquivo);
  
- move_uploaded_file( $arquivo_tmp, $destino  );
+ sleep(2);
  
+ $nome_arquivo = $_POST['nome'].'.png';
+
+ rename($diretorio_arquivo, $destino.$nome_arquivo);
+ 
+//  print_r($destino);die;
  
  $quebra_nome = explode(' ',$_POST['nome']);
 
@@ -105,9 +117,7 @@ aptdoes,passatempo
     <b>Passatempo: </b><?= $_POST['passatempo'] ?>
 </div>
 <br> <br> 
-Foto de Perfil: <?php $_POST["pasta"];?>
-$nome_pasta = $_POST["pasta"];
-mkdir("pastas/$nome_pasta/");
+
 <center><input type="button" value=" Imprimir " onClick="imprimir()"/></center>
 </form>
 </div>

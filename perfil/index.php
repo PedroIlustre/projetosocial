@@ -6,7 +6,7 @@
     <hr />
     <div class="row">
      <?php                   
-      $path = "projetos/";
+      $path = "../projetos/";
       $diretorio = dir($path);
       while($arquivo = $diretorio -> read()){
               
