@@ -8,13 +8,19 @@
     <meta name="description" content="">
     <meta name="author" content="">
     
-    <title>Versed | Versátil</title>
+    <title>CV</title>
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
                                          <link rel="shortcut icon" href="versed.png" >
     <!-- Custom CSS -->
     <link href="css/agency.css" rel="stylesheet">
     <link href="css/jquery.bxslider.css" rel="stylesheet">
+    <style type="text/css">
+    .container input {
+      height:50px !important;
+      font-size:1.2em !important;
+    }
+    </style>
 	
 
     <!-- Custom Fonts -->
@@ -24,89 +30,37 @@
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
         <script>
-       
-                var v_obj;
-                var v_fun;
-                     
-                /* Máscaras ER */
-                function mascara(object,func){
-                
-                    v_obj = object;
-                    v_fun=func;
-                    setTimeout(function(){
-                        execmascara();
-                    },100);
-                }
-                
-                function execmascara(){
-                
-                    v_obj.value=v_fun(v_obj.value);
-                }
-                
-                function mtel(v){   
-                    v=v.toString().replace(/\D/g,"");             //Remove tudo o que não é dígito
-                    v=v.toString().replace(/^(\d{2})(\d)/g,"($1) $2"); //Coloca parênteses em volta dos dois primeiros dígitos
-                    v=v.toString().replace(/(\d)(\d{4})$/,"$1-$2");    //Coloca hífen entre o quarto e o quinto dígitos
-                    return v;
-                }
-                function id( el ){
-                    return document.getElementById( el );
-                }
-                window.onload = function(){
-                    id('phone').onkeypress = function(){
-                        mascara( this, mtel );
-                    }
-                }
-                   /*
-        $('#phone').on('keypress',function(){
-         /*
-        v = v.toString();
-                v=v.replace(/\D/g,"");            
-                  v=v.replace(/^(\d{2})(\d)/g,"($1) $2"); 
-                  v=v.replace(/(\d)(\d{4})$/,"$1-$2");   
-                  return v;
-            }); 
-            */
-      
-                    
-            
+        var anterior = 0;
+        var i=0;
+        
+        function qtdEmpresa(ele){
+        	var atual = $(ele).val();
+			anterior = anterior == 0 ? 0: anterior;
+			if(atual > anterior){
+        		$('#empresas').append('<span id="span_'+i+'"> <br>'
+        		+ ' Nome Empresa: <input style="width:100px !important; height: 26px !important; font-size:0.7em !important;" type="text" id="nome_empresa'+i+'" name="nome_empresa'+i+'"> <br>'
+        		+ ' Periodo: <input style="height: 26px !important; font-size:0.7em !important;" type="text" id="tempo_empresa'+i+'" name="tempo_empresa'+i+'"> <br>'
+        		+ ' Descri&ccedil;&atilde;o das Atividades: <textarea rows="" cols="" class="form-control" type="text" name="desc_empresa'+i+'" >'
+                + '</textarea > <br>'
+        		+ '<br> </span>');
+        		i++; 
+			}else{
+				$('#empresas').find('#span_'+(i-1)).remove();
+			console.info(i);
+				i--; 
+			}
+			anterior = atual;
+			
+        }  
+                   
 
         </script>
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <script type='text/javascript' src='//code.jquery.com/jquery-compat-git.js'></script>
-    <script type='text/javascript' src='//igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js'></script>
-        <script type="text/javascript" src="https://raw.githubusercontent.com/digitalBush/jquery.maskedinput/master/dist/jquery.maskedinput.min.js"></script>
-    <![endif]-->
+
 
 </head>
 
-<body id="page-top" class="index">
+<body id="page-top" class="index" style="font-weight: bolder !important">
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">OOLAAA</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container-fluid -->
-    </nav>
 
 
     <!-- About Section -->
@@ -119,62 +73,80 @@
                     <h3 class="section-subheading text-muted"></h3>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" style="width:500px !important; font-size:1.5em !important; margin-left:250px !important">
+
+<form method="post" enctype="multipart/form-data" action="recebeUpload.php">
+                   Selecione uma imagem: <input name="arquivo" type="file" />
+                   <br />
+                   <input type="submit" value="Salvar" />
+                </form>
+                
+            <form action="gera_pdf_cv.php" method="post" target="_blank">
+                <!-- MAX_FILE_SIZE deve preceder o campo input -->
+                <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
+                <!-- O Nome do elemento input determina o nome da array $_FILES -->
+                Foto de Perfil: <input name="userfile" type="file" />
+                
+                
+                
+                
                 <div class="col-lg-12">
-                                    Nome Completo: <input class="form-control" type="text" name="">
+                                    Nome Completo: <input class="form-control" type="text" name="nome"> <br> 
+                                    
                 </div>
                 <div class="col-lg-12">
-                                    Nome Completo: <input class="form-control" type="text" name="">
+                                    Fone contato: <input class="form-control" type="text" name="fone"> <br> 
                 </div>
-            </div>
-        </div>
-    </section>
-    <!-- Contact Section -->
-    <section id="contact">
-    <form action="form_curriculo.php" method="post" target="_blank">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Faça seu currículo</h2>
-                    <h3 class="section-subheading text-muted">Currículo rápido e prático</h3>
-                    <p class="help-block text-danger">
-                    <input type="text" class="form-control text-center" id="name" name="name" style="width:500px; margin-left:310px" placeholder="Seu nome *" required data-validation-required-message="Please enter your name.">
-                     </p>
-                     <br> 
-                     <br>
+                <div class="col-lg-12">
+                                    E-mail: <input class="form-control" type="text" name="email"> <br>
                 </div>
-            </div>
-            <div class="row">
+                <div class="col-lg-12">
+                                   Idade: <input class="form-control" type="text" name="idade"> <br>
+                </div>
+                <div class="col-lg-12">
+                                   Cidade: <input class="form-control" type="text" name="cidade"> <br>
+                </div>
+                <div class="col-lg-12">
+                                   Objetivo: <input class="form-control" type="text" name="objetivo"> <br>
+                </div>
+                <div class="col-lg-12">
+                                   Escolaridade: <input class="form-control" type="text" name="escolaridade"> <br>
+                </div>
+                <div class="col-lg-12">
+                                   Aptid&otilde;es: <textarea rows="" cols="" class="form-control" type="text" name="aptidoes" >
+                                    </textarea > <br>
+<!--                                     <input class="form-control" type="text" name="aptidoes"> -->
+                </div>
+                <div class="col-lg-12">
+                                   Passatempo: <textarea rows="" cols="" class="form-control" type="text" name="passatempo" >
+                                    </textarea >  <br> 
+                </div>
+                
+                <div class="col-lg-12">
+                                   J&aacute; trabalhou em quantas empresas? 
+                   <input class="l" onchange="qtdEmpresa(this)" type="number" id="qtde_empresas" style="max-length:3 !important" name="qtde_empresas" min="1" max="99" > <br>
+                </div>
+                <br> <br>
+                <div class="col-lg-12" id="empresas" style="font-size:0.9em !important height:25px !important; ">
+                </div>
+                
+                <br> <br>
                 <div class="col-lg-12">
                         <div class="row">
                             <div class="clearfix"></div>
                             <div class="col-lg-12 text-center">
-                                <div id="success"></div>
-                                <button type="submit" class="btn btn-xl">Curriculo Rápido</button>
+                                <div id="success"></div> <br>  <br>  <br> 
+                                <button type="submit" class="btn btn-xl">Gerar</button>
                             </div>
                         </div>
-                </div>
             </div>
+            </form>
         </div>
-    </form>
     </section>
 
     <footer>
         <div class="container">
             <div class="row">
-                <div class="col-md-4">
-                    <span class="copyright">Copyright &copy; Versed 2018</span>
-                </div>
-                <div class="col-md-4">
-                    <ul class="list-inline social-buttons">
-                        <li><a href="#"><i class="fa fa-twitter"></i></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-facebook"></i></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a>
-                        </li>
-                    </ul>
-                </div>
                 <div class="col-md-4">
                     <ul class="list-inline quicklinks">
                         <li>Parceiro
