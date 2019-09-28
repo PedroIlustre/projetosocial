@@ -2,7 +2,7 @@
 
 <?php include(HEADER_TEMPLATE); ?>
 
-    <h1>Projetos</h1>
+    <h1><?= utf8_encode('Currículos / Projetos')?></h1>
     <hr />
     <div class="row">
      <?php                   
@@ -12,7 +12,7 @@
               
       if(preg_match('/.../',$arquivo)){
           echo "<div class='col-xs-6 col-sm-3 col-md-2'>      
-                    <a href='".$path.$arquivo."' class='btn btn-default' target='_blank'>
+                    <a href='".$path.$arquivo.".pdf' class='btn btn-default' target='_blank'>
                       <div class='row'>
                           <div class='col-xs-12 text-center'>
                               <i class='fa  fa-5x'>
